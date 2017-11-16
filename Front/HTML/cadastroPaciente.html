@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
+    <script src="../JS/jquery-migrate-1.4.1.min"></script>  
+    <title>Cadastro de Pacientes</title>
+</head>
+
+<body>
+    <div id="interface">
+        <header>
+            <h2>Formulario para Cadastro de Pacientes</h2>
+            <p>Desenvolvido por Iury Almeida</p>
+            <nav id="menu">
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="cadastroPaciente.html">Cadastrar Paciente</a>
+                    </li>
+                    <li>
+                        <a href="cadastroConsulta.html">Cadastrar Consulta</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <section id="formulario">
+            <form>
+                <fieldset>
+                    <legend>Informações Pessoais</legend>
+                    Nome<br>
+                    <input type="text" size="" id="nome"><br>
+                    RG<br>
+                    <input type="text" size="" id="rg"><br>
+                    CPF<br>
+                    <input type="text" size="" id="cpf">
+                </fieldset>
+                <input type="submit" id="enviar">
+            </form>
+        </section>
+
+        <footer id="rodape">
+            <p>
+                <br/> </p>
+        </footer>
+    </div>
+</body>
+<script>
+    let nome = $('nome');
+    let rg = $('rg');
+    let cpf = $('rg');
+    
+    $('#enviar').on('click', function () {
+       $.ajax({
+        type: 'POST',
+        url: 'localhost:3000/cadastrpPaciente',
+        data: {
+            nome: nome,
+            rg: rg,
+            cpf: cpf
+        },
+        success: function(){
+            alert('Dados enviador com sucesso.');
+        },
+        error: function(){
+            alert('Falha');
+        }
+       }); 
+    });
+</script>
+</html>

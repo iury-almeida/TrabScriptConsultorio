@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
-    <script src="../JS/jquery-migrate-1.4.1.min"></script>  
+    <script src="../JS/jquery-3.2.1.js"></script>
     <title>Cadastro de Pacientes</title>
 </head>
 
@@ -31,12 +31,56 @@
             <form>
                 <fieldset>
                     <legend>Informações Pessoais</legend>
-                    Nome<br>
-                    <input type="text" size="" id="nome"><br>
-                    RG<br>
-                    <input type="text" size="" id="rg"><br>
-                    CPF<br>
-                    <input type="text" size="" id="cpf">
+                    Nome
+                    <br>
+                    <input type="text" size="50" maxlength="60" id="nome" placeholder="Nome">
+                    <br> RG
+                    <br>
+                    <input type="text" maxlength="9" size="15" id="rg" placeholder="RG">
+                    <br> CPF
+                    <br>
+                    <input type="text" maxlength="11" size="15" id="cpf" placeholder="CPF">
+                </fieldset>
+                <fieldset>
+                    <legend>Endereço</legend>
+                    Rua
+                    <br>
+                    <input type="text" size="50" maxlength="50" id="rua" placeholder="Rua">
+                    <br> Número
+                    <br>
+                    <input type="text" size="4" maxlength="4" id="numero" placeholder="Número">
+                    <br> Bairro
+                    <br>
+                    <input type="text" size="30" maxlength="50" id="bairro" placeholder="Bairro">
+                    <br> Cep
+                    <br>
+                    <input type="text" size="15" maxlength="9" id="cep" placeholder="Cep">
+                    <br> Município
+                    <br>
+                    <input type="text" size="20" maxlength="30" id="municipio" placeholder="Município">
+                    <br> UF
+                    <br>
+                    <input type="text" size="2" maxlength="2" id="uf" placeholder="UF">
+                    <br>
+                </fieldset>
+                <fieldset>
+                    <legend>Contato</legend>
+                    E-mail
+                    <br>
+                    <input type="text" size="40" maxlength="60" id="email" placeholder="E-mail">
+                    <br> DDD Celular
+                    <br>
+                    <input type="text" size="3" maxlength="3" id="dddCelular" placeholder="DDD">
+                    <br> Celular
+                    <br>
+                    <input type="text" size="9" maxlength="9" id="celular" placeholder="Celular">
+                    <br> DDD Telefone
+                    <br>
+                    <input type="text" size="3" maxlength="3" id="dddTelefone" placeholder="DDD">
+                    <br> Telefone
+                    <br>
+                    <input type="text" size="9" maxlength="8" id="telefone" placeholder="Telefone">
+                    <br>
                 </fieldset>
                 <input type="submit" id="enviar">
             </form>
@@ -47,28 +91,44 @@
                 <br/> </p>
         </footer>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            
+            
+                
+            $('#enviar').on('click', function () {
+                let dataa = {
+                nome: $('#nome').val(),
+                rg: $('#rg').val(),
+                cnpjCpf: $('#cpf').val(),
+                rua: $('#rua').val(),
+                numero: $('#numero').val(),
+                bairro: $('#bairro').val(),
+                cep: $('#cep').val(),
+                municipio: $('#municipio').val(),
+                uf: $('#uf').val(),
+                email: $('#email').val(),
+                dddCel: $('#dddCelular').val(),
+                celular: $('#celular').val(),
+                dddTel: $('#dddTelefone').val(),
+                telefone: $('#telefone').val()
+            }
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3001/',cadastroPaciente
+                    data: dataa,
+                    success: function () {
+                        alert('Dados enviador com sucesso.');
+                    },
+                    error: function () {
+                        alert('Dados enviado com sucesso');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-<script>
-    let nome = $('nome');
-    let rg = $('rg');
-    let cpf = $('rg');
-    
-    $('#enviar').on('click', function () {
-       $.ajax({
-        type: 'POST',
-        url: 'localhost:3000/cadastrpPaciente',
-        data: {
-            nome: nome,
-            rg: rg,
-            cpf: cpf
-        },
-        success: function(){
-            alert('Dados enviador com sucesso.');
-        },
-        error: function(){
-            alert('Falha');
-        }
-       }); 
-    });
-</script>
+
 </html>

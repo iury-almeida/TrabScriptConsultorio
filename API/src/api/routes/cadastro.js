@@ -1,6 +1,4 @@
 module.exports = (app) => {
-    app.get('/cadastroPaciente', (req, res) => {
-        console.log(req.body);
-    });
-
+    let controller = require('../../core/controller.js')(app);
+    app.post('/cadastroPaciente', controller.cadastroPaciente);
 }

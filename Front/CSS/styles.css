@@ -1,13 +1,15 @@
 
 div#interface {
     width: 1000px;
-    height: 700px;
-    background-color:#39cbdf;
+    background-color:#62b2bdce;
     margin: -20px auto 0px auto; 
     box-shadow: 0px 0px 10px rgba(0,0,0, .8);
     padding: 30px 10px 10px 10px;
 }
+/*
+    background-color:#39cbdf;
 
+*/
 
 nav#menu{
     display: block;

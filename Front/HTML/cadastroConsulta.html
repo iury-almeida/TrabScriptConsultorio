@@ -24,6 +24,12 @@
                     <li>
                         <a href="cadastroConsulta.html">Cadastrar Consulta</a>
                     </li>
+                    <li>
+                        <a href="consultaPaciente.html">Consultar Pacientes</a>
+                    </li>
+                    <li>
+                        <a href="consultaConsulta.html">Lista de Consultas</a>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -31,56 +37,22 @@
             <form>
                 <fieldset>
                     <legend>Consulta</legend>
-                    Nome
+                    Paciente
                     <br>
-                    <input type="text" size="50" maxlength="60" id="nome" placeholder="Nome">
-                    <br> RG
+                    <select name="paciente" id="pacientes">
+                    </select>
+                    <br> Data Consulta
                     <br>
-                    <input type="text" maxlength="9" size="15" id="rg" placeholder="RG">
-                    <br> CPF
+                    <input type="date" id="dataConsulta">
+                    <br> Hora Consulta
                     <br>
-                    <input type="text" maxlength="11" size="15" id="cpf" placeholder="CPF">
-                </fieldset>
-                <fieldset>
-                    <legend>Endereço</legend>
-                    Rua
+                    <input type="time" id="horaConsulta">
+                    <br> Sintomas
                     <br>
-                    <input type="text" size="50" maxlength="50" id="rua" placeholder="Rua">
-                    <br> Número
-                    <br>
-                    <input type="text" size="4" maxlength="4" id="numero" placeholder="Número">
-                    <br> Bairro
-                    <br>
-                    <input type="text" size="30" maxlength="50" id="bairro" placeholder="Bairro">
-                    <br> Cep
-                    <br>
-                    <input type="text" size="15" maxlength="9" id="cep" placeholder="Cep">
-                    <br> Município
-                    <br>
-                    <input type="text" size="20" maxlength="30" id="municipio" placeholder="Município">
-                    <br> UF
-                    <br>
-                    <input type="text" size="2" maxlength="2" id="uf" placeholder="UF">
-                    <br>
-                </fieldset>
-                <fieldset>
-                    <legend>Contato</legend>
-                    E-mail
-                    <br>
-                    <input type="text" size="40" maxlength="60" id="email" placeholder="E-mail">
-                    <br> DDD Celular
-                    <br>
-                    <input type="text" size="3" maxlength="3" id="dddCelular" placeholder="DDD">
-                    <br> Celular
-                    <br>
-                    <input type="text" size="9" maxlength="9" id="celular" placeholder="Celular">
-                    <br> DDD Telefone
-                    <br>
-                    <input type="text" size="3" maxlength="3" id="dddTelefone" placeholder="DDD">
-                    <br> Telefone
-                    <br>
-                    <input type="text" size="9" maxlength="8" id="telefone" placeholder="Telefone">
-                    <br>
+                    <textarea id="sintomas" style="width:200px; height:200px;"></textarea>
+                    <br> Gravidade
+                    <br> 1
+                    <input type="range" max="10" min="0" id="gravidade"> 10
                 </fieldset>
                 <input type="submit" id="enviar">
             </form>
@@ -94,31 +66,37 @@
 
     <script>
         $(document).ready(function () {
-            
-            
-                
+            let $nomes = $('#pacientes');
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3001/buscarTodosNomes',
+                success: function (nomes) {
+                    //Instalar extensão cors
+                    console.log(nomes);
+                    $.each(nomes, function (i) {
+                        $nomes.append(`<option value="${nomes[i].id}">${nomes[i].nome}</option>`);
+                    });
+
+                },
+                error: function (nomes) {
+                    alert('Instale a extensão Allow-Control-Allow-Origin');
+                }
+            });
+
             $('#enviar').on('click', function () {
-                let dataa = {
-                nome: $('#nome').val(),
-                rg: $('#rg').val(),
-                cpf: $('#cpf').val(),
-                rua: $('#rua').val(),
-                numero: $('#numero').val(),
-                bairro: $('#bairro').val(),
-                cep: $('#cep').val(),
-                municipio: $('#municipio').val(),
-                uf: $('#uf').val(),
-                email: $('#email').val(),
-                dddCelular: $('#dddCelular').val(),
-                celular: $('#celular').val(),
-                dddTelefone: $('#dddTelefone').val(),
-                telefone: $('#telefone').val()
-            }
+                let dados = {
+                    idPaciente: $('#pacientes').val(),
+                    dataConsulta: $('#dataConsulta').val(),
+                    horaConsulta: $('#horaConsulta').val(),
+                    sintomas: $('#sintomas').val(),
+                    gravidade: $('#gravidade').val()
+                }
 
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost:3001/cadastroPaciente',
-                    data: dataa,
+                    url: 'http://localhost:3001/cadastroConsulta',
+                    data: dados,
                     success: function () {
                         alert('Dados enviador com sucesso.');
                     },

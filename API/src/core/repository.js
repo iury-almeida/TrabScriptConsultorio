@@ -18,15 +18,38 @@
     telefone: req.telefone,
 }*/
 
+//let insert = 'insert into paciente (nome, rg, cnpjCpf, rua, numero, bairro, cep, municipio, uf, email, dddCel, celular, dddTel, telefone)';
+
+
+
 module.exports = () => {
     const db = require('../../config/dataBase.js')();
-    let insert = 'insert into paciente (nome, rg, cnpjCpf, rua, numero, bairro, cep, municipio, uf, email, dddCel, celular, dddTel, telefone)';
     let repositorio = {
-        inserirPaciente: (req) => {  
-            db.query('insert into paciente  set ? ', req.body, (err, result) => {
+        inserirPaciente: (req) => {
+            db.query('insert into paciente set ? ', req.body, (err, result) => {
                 if (err)
                     return console.log(err);
                 return console.log('Dados inseridos');
+            });
+        },
+        inserirConsulta: (req) => {
+            console.log(req.body);
+            db.query('insert into Consulta set ? ', req.body, (err, result) => {
+                if (err)
+                    return console.log(err);
+                return console.log('Dados inseridos');
+            });
+        },
+        buscarTodosNomes: (req, res) => {
+            db.query('select id, nome from paciente', (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send('Deu Pau');
+                }
+                else {
+                    console.log(result);
+                    return res.status(200).send(result);
+                }
             });
         }
     }

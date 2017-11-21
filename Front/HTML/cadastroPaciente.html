@@ -24,6 +24,12 @@
                     <li>
                         <a href="cadastroConsulta.html">Cadastrar Consulta</a>
                     </li>
+                    <li>
+                        <a href="consultaPaciente.html">Consultar Pacientes</a>
+                    </li>
+                    <li>
+                        <a href="consultaConsulta.html">Lista de Consultas</a>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -117,13 +123,13 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost:3001/',cadastroPaciente
+                    url: 'http://localhost:3001/cadastroPaciente',
                     data: dataa,
                     success: function () {
-                        alert('Dados enviador com sucesso.');
+                        alert('Dados enviados com sucesso.');
                     },
                     error: function () {
-                        alert('Dados enviado com sucesso');
+                        alert('Dados enviados com sucesso.');
                     }
                 });
             });
